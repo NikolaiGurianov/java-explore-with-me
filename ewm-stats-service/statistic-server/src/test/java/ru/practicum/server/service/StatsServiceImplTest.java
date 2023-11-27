@@ -20,8 +20,6 @@ import ru.practicum.server.model.ViewStat;
 import ru.practicum.server.repository.StatsRepository;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -66,46 +64,42 @@ class StatsServiceImplTest {
 
     @Test
     void getStatistics_Unique() {
-        String start = "2023-01-01 00:00:00";
-        String end = "2023-01-02 00:00:00";
-        String[] uris = {"uri1", "uri2"};
-        LocalDateTime startDateTime = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        LocalDateTime endDateTime = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        LocalDateTime start = LocalDateTime.now();
+        LocalDateTime end = LocalDateTime.now().plusDays(1);
+        List<String> uris = List.of("uri1", "uri2");
 
-        when(statsRepository.getViewStatsWithUniqueIp(startDateTime, endDateTime, uris))
-                .thenReturn(Arrays.asList(new ViewStat()));
+        when(statsRepository.getViewStatsWithUniqueIp(start, end, uris))
+                .thenReturn(List.of(new ViewStat()));
 
         List<ViewStat> result = statsService.getStatistic(start, end, uris, true);
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
         verify(statsRepository, times(1))
-                .getViewStatsWithUniqueIp(startDateTime, endDateTime, uris);
+                .getViewStatsWithUniqueIp(start, end, uris);
     }
 
     @Test
     void getStatistics_All() {
-        String start = "2023-01-01 00:00:00";
-        String end = "2023-01-02 00:00:00";
-        String[] uris = {"uri1", "uri2"};
-        LocalDateTime startDateTime = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        LocalDateTime endDateTime = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        LocalDateTime start = LocalDateTime.now();
+        LocalDateTime end = LocalDateTime.now().plusDays(1);
+        List<String> uris = List.of("uri1", "uri2");
 
-        when(statsRepository.getViewStatsWithAllIp(startDateTime, endDateTime, uris))
-                .thenReturn(Arrays.asList(new ViewStat()));
+        when(statsRepository.getViewStatsWithAllIp(start, end, uris))
+                .thenReturn(List.of(new ViewStat()));
 
         List<ViewStat> result = statsService.getStatistic(start, end, uris, false);
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
-        verify(statsRepository, times(1)).getViewStatsWithAllIp(startDateTime, endDateTime, uris);
+        verify(statsRepository, times(1)).getViewStatsWithAllIp(start, end, uris);
     }
 
     @Test
     void getStatistics_InvalidTimeRange() {
-        String start = "2023-01-02 00:00:00";
-        String end = "2023-01-01 00:00:00";
-        String[] uris = {"uri1", "uri2"};
+        LocalDateTime start = LocalDateTime.now().plusDays(1);
+        LocalDateTime end = LocalDateTime.now();
+        List<String> uris = List.of("uri1", "uri2");
 
         assertThrows(ValidException.class, () -> statsService.getStatistic(start, end, uris, false));
     }

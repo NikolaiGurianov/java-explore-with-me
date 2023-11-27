@@ -30,12 +30,12 @@ public interface StatsRepository extends JpaRepository<EndpointHit, Long> {
             "WHERE h.uri IN :uris AND h.timestamp BETWEEN :start and :end " +
             "GROUP BY h.app, h.uri " +
             "ORDER BY COUNT(DISTINCT h.ip) DESC")
-    List<ViewStat> getViewStatsWithUniqueIp(LocalDateTime start, LocalDateTime end, String[] uris);
+    List<ViewStat> getViewStatsWithUniqueIp(LocalDateTime start, LocalDateTime end, List<String> uris);
 
     @Query("SELECT new ru.practicum.server.model.ViewStat(h.app, h.uri, COUNT(h.ip)) " +
             "FROM EndpointHit h " +
             "WHERE h.uri IN :uris AND h.timestamp BETWEEN :start and :end " +
             "GROUP BY h.app, h.uri " +
             "ORDER BY COUNT(h.ip) DESC")
-    List<ViewStat> getViewStatsWithAllIp(LocalDateTime start, LocalDateTime end, String[] uris);
+    List<ViewStat> getViewStatsWithAllIp(LocalDateTime start, LocalDateTime end, List<String> uris);
 }

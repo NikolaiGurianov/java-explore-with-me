@@ -11,7 +11,6 @@ import ru.practicum.server.model.ViewStat;
 import ru.practicum.server.repository.StatsRepository;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Data
@@ -28,27 +27,24 @@ public class StatsServiceImpl implements StatsService {
     }
 
     @Override
-    public List<ViewStat> getStatistic(String start, String end, String[] uris, Boolean unique) {
-        LocalDateTime startDateTime = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        LocalDateTime endDateTime = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-
-        if (startDateTime.isAfter(endDateTime)) {
+    public List<ViewStat> getStatistic(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
+        if (start.isAfter(end)) {
             log.error("Invalid time range. 'start' should be before 'end'.");
             throw new ValidException("Invalid time range. 'start' should be before 'end'.");
         }
         if (uris == null) {
             if (unique) {
-                return statsRepository.getViewStatisticsWithUniqueIpAllUris(startDateTime, endDateTime);
+                return statsRepository.getViewStatisticsWithUniqueIpAllUris(start, end);
             } else {
-                return statsRepository.getViewStatisticsWithAllIpAllUris(startDateTime, endDateTime);
+                return statsRepository.getViewStatisticsWithAllIpAllUris(start, end);
             }
         } else {
             if (unique) {
                 log.info("Getting statistics with unique IP addresses");
-                return statsRepository.getViewStatsWithUniqueIp(startDateTime, endDateTime, uris);
+                return statsRepository.getViewStatsWithUniqueIp(start, end, uris);
             } else {
                 log.info("Getting statistics with all IP addresses");
-                return statsRepository.getViewStatsWithAllIp(startDateTime, endDateTime, uris);
+                return statsRepository.getViewStatsWithAllIp(start, end, uris);
             }
         }
     }

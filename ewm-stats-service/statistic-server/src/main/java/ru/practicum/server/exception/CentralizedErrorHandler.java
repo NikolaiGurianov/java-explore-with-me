@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class CentralizedErrorHandler {
     @ExceptionHandler(ValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<?> handleUserValidException(final ValidException e) {
+    public ResponseEntity<ResponseBody> handleUserValidException(final ValidException e) {
         return new ResponseEntity<>(
                 new ResponseBody(e.getMessage()), HttpStatus.valueOf(400));
     }

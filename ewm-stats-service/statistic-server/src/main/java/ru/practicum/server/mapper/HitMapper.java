@@ -5,7 +5,8 @@ import ru.practicum.dto.HitDto;
 import ru.practicum.server.model.EndpointHit;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+import static ru.practicum.server.constant.Constants.DATE_TIME_FORMATTER;
 
 @Component
 public class HitMapper {
@@ -14,7 +15,7 @@ public class HitMapper {
         hit.setApp(hitDto.getApp());
         hit.setUri(hitDto.getUri());
         hit.setIp(hitDto.getIp());
-        hit.setTimestamp(LocalDateTime.parse(hitDto.getTimestamp(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        hit.setTimestamp(LocalDateTime.parse(hitDto.getTimestamp(), DATE_TIME_FORMATTER));
 
         return hit;
     }

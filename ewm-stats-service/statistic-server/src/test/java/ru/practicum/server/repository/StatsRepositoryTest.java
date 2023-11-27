@@ -20,7 +20,7 @@ class StatsRepositoryTest {
     void testGetViewStatsWithUniqueIp() {
         LocalDateTime startDateTime = LocalDateTime.now().minusDays(1);
         LocalDateTime endDateTime = LocalDateTime.now();
-        String[] uris = {"uri1", "uri2"};
+        List<String> uris = List.of("uri1", "uri2");
 
         List<ViewStat> result = statsRepository.getViewStatsWithUniqueIp(startDateTime, endDateTime, uris);
 
@@ -31,7 +31,7 @@ class StatsRepositoryTest {
     void testGetViewStatsWithAllIp() {
         LocalDateTime startDateTime = LocalDateTime.now().minusDays(1);
         LocalDateTime endDateTime = LocalDateTime.now();
-        String[] uris = {"uri1", "uri2"};
+        List<String> uris = List.of("uri1", "uri2");
 
         List<ViewStat> result = statsRepository.getViewStatsWithAllIp(startDateTime, endDateTime, uris);
 

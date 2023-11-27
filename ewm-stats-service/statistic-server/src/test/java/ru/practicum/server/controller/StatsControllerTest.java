@@ -2,6 +2,7 @@ package ru.practicum.server.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import ru.practicum.dto.HitDto;
 import ru.practicum.server.model.ViewStat;
 import ru.practicum.server.service.StatsService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -25,6 +27,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static ru.practicum.server.constant.Constants.DATE_TIME_FORMATTER;
 
 @WebMvcTest(controllers = StatsController.class)
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
@@ -64,10 +67,9 @@ class StatsControllerTest {
 
     @Test
     void testGetStatistics() throws Exception {
-        // Arrange
         String start = "2023-11-23 15:00:00";
         String end = "2023-11-23 16:00:00";
-        String[] uris = {"TestUri1", "TestUri2"};
+        List<String> uris = List.of("TestUri1", "TestUri2");
         Boolean unique = false;
 
         List<ViewStat> viewStatsList = List.of(
@@ -75,13 +77,15 @@ class StatsControllerTest {
                 new ViewStat("TestApp2", "TestUri2", 8L)
         );
 
-        when(statsService.getStatistic(eq(start), eq(end), eq(uris), eq(unique))).thenReturn(viewStatsList);
+        when(statsService.getStatistic(
+                eq(LocalDateTime.parse(start, DATE_TIME_FORMATTER)),
+                eq(LocalDateTime.parse(end, DATE_TIME_FORMATTER)),
+                eq(uris), eq(unique))).thenReturn(viewStatsList);
 
-        // Act
         mvc.perform(get("/stats")
                         .param("start", start)
                         .param("end", end)
-                        .param("uris", uris)
+                        .param("uris", uris.get(0), uris.get(1))
                         .param("unique", unique.toString()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -90,7 +94,9 @@ class StatsControllerTest {
                 .andExpect(jsonPath("$[1].app").value("TestApp2"))
                 .andExpect(jsonPath("$[1].uri").value("TestUri2"));
 
-        // Assert
-        verify(statsService, times(1)).getStatistic(eq(start), eq(end), eq(uris), eq(unique));
+        verify(statsService, times(1)).getStatistic(
+                eq(LocalDateTime.parse(start, DATE_TIME_FORMATTER)),
+                eq(LocalDateTime.parse(end, DATE_TIME_FORMATTER)),
+                eq(uris), eq(unique));
     }
 }

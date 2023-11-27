@@ -36,12 +36,20 @@ public class StatsServiceImpl implements StatsService {
             log.error("Invalid time range. 'start' should be before 'end'.");
             throw new ValidException("Invalid time range. 'start' should be before 'end'.");
         }
-        if (unique) {
-            log.info("Getting statistics with unique IP addresses");
-            return statsRepository.getViewStatsWithUniqueIp(startDateTime, endDateTime, uris);
+        if (uris == null) {
+            if (unique) {
+                return statsRepository.getViewStatisticsWithUniqueIpAllUris(startDateTime, endDateTime);
+            } else {
+                return statsRepository.getViewStatisticsWithAllIpAllUris(startDateTime, endDateTime);
+            }
         } else {
-            log.info("Getting statistics with all IP addresses");
-            return statsRepository.getViewStatsWithAllIp(startDateTime, endDateTime, uris);
+            if (unique) {
+                log.info("Getting statistics with unique IP addresses");
+                return statsRepository.getViewStatsWithUniqueIp(startDateTime, endDateTime, uris);
+            } else {
+                log.info("Getting statistics with all IP addresses");
+                return statsRepository.getViewStatsWithAllIp(startDateTime, endDateTime, uris);
+            }
         }
     }
 }

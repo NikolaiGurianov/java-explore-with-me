@@ -13,6 +13,20 @@ import java.util.List;
 public interface StatsRepository extends JpaRepository<EndpointHit, Long> {
     @Query("SELECT new ru.practicum.server.model.ViewStat(h.app, h.uri, COUNT(DISTINCT h.ip)) " +
             "FROM EndpointHit h " +
+            "WHERE h.timestamp BETWEEN :start and :end " +
+            "GROUP BY h.app, h.uri " +
+            "ORDER BY COUNT(DISTINCT h.ip) DESC")
+    List<ViewStat> getViewStatisticsWithUniqueIpAllUris(LocalDateTime start, LocalDateTime end);
+
+    @Query("SELECT new ru.practicum.server.model.ViewStat(h.app, h.uri, COUNT(h.ip)) " +
+            "FROM EndpointHit h " +
+            "WHERE h.timestamp BETWEEN :start and :end " +
+            "GROUP BY h.app, h.uri " +
+            "ORDER BY COUNT(h.ip) DESC")
+    List<ViewStat> getViewStatisticsWithAllIpAllUris(LocalDateTime start, LocalDateTime end);
+
+    @Query("SELECT new ru.practicum.server.model.ViewStat(h.app, h.uri, COUNT(DISTINCT h.ip)) " +
+            "FROM EndpointHit h " +
             "WHERE h.uri IN :uris AND h.timestamp BETWEEN :start and :end " +
             "GROUP BY h.app, h.uri " +
             "ORDER BY COUNT(DISTINCT h.ip) DESC")

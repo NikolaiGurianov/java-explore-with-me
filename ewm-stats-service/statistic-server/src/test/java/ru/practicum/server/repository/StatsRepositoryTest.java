@@ -37,4 +37,24 @@ class StatsRepositoryTest {
 
         assertNotNull(result);
     }
+
+    @Test
+    public void testGetViewStatisticsWithUniqueIpAllUris() {
+        LocalDateTime start = LocalDateTime.now().minusDays(7);
+        LocalDateTime end = LocalDateTime.now();
+
+        List<ViewStat> result = statsRepository.getViewStatisticsWithUniqueIpAllUris(start, end);
+
+        assertNotNull(result);
+    }
+
+    @Test
+    public void testGetViewStatisticsWithAllIpAllUris() {
+        LocalDateTime start = LocalDateTime.now().minusDays(7);
+        LocalDateTime end = LocalDateTime.now();
+
+        List<ViewStat> result = statsRepository.getViewStatisticsWithAllIpAllUris(start, end);
+
+        assertNotNull(result);
+    }
 }

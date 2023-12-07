@@ -1,3 +1,4 @@
+
 package ru.practicum.server.mapper;
 
 import org.junit.jupiter.api.Test;
@@ -7,7 +8,7 @@ import ru.practicum.server.model.EndpointHit;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static ru.practicum.server.constant.Constants.DATE_TIME_FORMATTER;
+import static ru.practicum.util.Constants.DATE_TIME_FORMATTER;
 
 class HitMapperTest {
     private final HitMapper hitMapper = new HitMapper();

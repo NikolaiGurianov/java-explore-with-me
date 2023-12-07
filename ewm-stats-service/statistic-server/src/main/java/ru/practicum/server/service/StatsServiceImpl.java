@@ -7,7 +7,7 @@ import ru.practicum.dto.HitDto;
 import ru.practicum.server.exception.ValidException;
 import ru.practicum.server.mapper.HitMapper;
 import ru.practicum.server.model.EndpointHit;
-import ru.practicum.server.model.ViewStat;
+import ru.practicum.dto.ViewStat;
 import ru.practicum.server.repository.StatsRepository;
 
 import java.time.LocalDateTime;

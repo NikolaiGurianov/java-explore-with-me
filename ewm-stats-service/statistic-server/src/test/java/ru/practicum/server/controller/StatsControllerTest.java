@@ -12,7 +12,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ru.practicum.dto.HitDto;
-import ru.practicum.server.model.ViewStat;
+import ru.practicum.dto.ViewStat;
 import ru.practicum.server.service.StatsService;
 
 import java.time.LocalDateTime;
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static ru.practicum.server.constant.Constants.DATE_TIME_FORMATTER;
+import static ru.practicum.util.Constants.DATE_TIME_FORMATTER;
 
 @WebMvcTest(controllers = StatsController.class)
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
@@ -58,7 +58,7 @@ class StatsControllerTest {
         mvc.perform(post("/hit")
                         .content(objectMapper.writeValueAsString(hitDto))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andReturn();
 
         verify(statsService, times(1)).add(any(HitDto.class));

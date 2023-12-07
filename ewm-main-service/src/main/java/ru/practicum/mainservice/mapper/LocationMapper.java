@@ -1,12 +1,10 @@
 package ru.practicum.mainservice.mapper;
 
-import lombok.Data;
-import org.springframework.stereotype.Component;
+import lombok.experimental.UtilityClass;
 import ru.practicum.mainservice.dto.LocationDto;
 import ru.practicum.mainservice.model.Location;
 
-@Data
-@Component
+@UtilityClass
 public class LocationMapper {
     public static Location toLocation(LocationDto locationDto) {
         Location location = new Location();

@@ -3,8 +3,8 @@ package ru.practicum.mainservice.controller.events;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.mainservice.dto.eventDto.EventFullDto;
-import ru.practicum.mainservice.dto.eventDto.UpdateEventAdminRequest;
+import ru.practicum.mainservice.dto.event.EventFullDto;
+import ru.practicum.mainservice.dto.event.UpdateEventAdminRequest;
 import ru.practicum.mainservice.service.events.admin.AdministratorEventService;
 import ru.practicum.mainservice.statuses.State;
 

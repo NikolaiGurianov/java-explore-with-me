@@ -6,8 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import ru.practicum.mainservice.dto.eventDto.*;
-import ru.practicum.mainservice.dto.requestDto.ParticipationRequestDto;
+import ru.practicum.mainservice.dto.event.*;
+import ru.practicum.mainservice.dto.request.ParticipationRequestDto;
 import ru.practicum.mainservice.exception.ConflictException;
 import ru.practicum.mainservice.exception.NotFoundException;
 import ru.practicum.mainservice.exception.ValidException;
@@ -26,7 +26,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static ru.practicum.mainservice.dto.eventDto.UpdateEventUserRequest.StateAction.SEND_TO_REVIEW;
+import static ru.practicum.mainservice.dto.event.UpdateEventUserRequest.StateAction.SEND_TO_REVIEW;
 import static ru.practicum.mainservice.statuses.RequestStatus.CONFIRMED;
 
 import static ru.practicum.util.Constants.SORT_BY_ID_ASC;
@@ -61,7 +61,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
             return result;
         }
         if (event.getParticipantLimit() <= event.getConfirmedRequests()) {
-            throw new ConflictException(String.format("Превышен лимит участников события с ID= {}", event.getId()));
+            throw new ConflictException("Превышен лимит участников события с ID= {}", event.getId());
         }
         List<ParticipationRequest> confirmedRequests = new ArrayList<>();
         List<ParticipationRequest> rejectedRequests = new ArrayList<>();
@@ -109,8 +109,8 @@ public class PrivateEventServiceImpl implements PrivateEventService {
     public List<ParticipationRequestDto> getRequestsForEventPr(Long userId, Long eventId) {
         log.info("Private: Запрос на получение заявок для события с ID={}", eventId);
 
-        Event event = admService.getEntity(eventId);
-        User user = userService.getEntity(userId);
+        admService.getEntity(eventId);
+        userService.getEntity(userId);
         List<ParticipationRequestDto> requestDtoList = requestsRepository.findAllByEventId(eventId)
                 .stream().map(RequestMapper::toDto).collect(Collectors.toList());
 
@@ -123,7 +123,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
     public List<EventShortDto> getEventsByUserIdPr(Long userId, int from, int size) {
         log.info("Private: Запрос на получение событий для пользователя с ID={}", userId);
 
-        User user = userService.getEntity(userId);
+        userService.getEntity(userId);
         Pageable pageable = PageRequest.of(from / size, size, SORT_BY_ID_ASC);
         List<Event> eventList = eventsRepository.findAllByInitiatorId(userId, pageable);
 
@@ -174,7 +174,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
     public EventFullDto updateEventPr(Long userId, Long eventId, UpdateEventUserRequest updateEventUserRequest) {
         log.info("Private: Запрос на обновление события");
 
-        User user = userService.getEntity(userId);
+        userService.getEntity(userId);
         Event event = admService.getEntity(eventId);
 
         if (event.getState().equals(State.PUBLISHED)) {

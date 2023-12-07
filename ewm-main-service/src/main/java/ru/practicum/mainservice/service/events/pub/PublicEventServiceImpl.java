@@ -6,11 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.practicum.client.StatsClient;
 import ru.practicum.dto.HitDto;
-import ru.practicum.mainservice.dto.eventDto.EventFullDto;
+import ru.practicum.dto.ViewStatDto;
+import ru.practicum.mainservice.dto.event.EventFullDto;
 import ru.practicum.mainservice.exception.NotFoundException;
 import ru.practicum.mainservice.exception.ValidException;
 import ru.practicum.mainservice.mapper.EventMapper;
@@ -98,19 +98,15 @@ public class PublicEventServiceImpl implements PublicEventService {
 
         String[] uris = {"/events/" + event.getId()};
 
-        ResponseEntity<Object> response = statsClient.getStatistics(
+        List<ViewStatDto> response = statsClient.getStatistics(
                 event.getPublishedOn().format(DATE_TIME_FORMATTER),
                 LocalDateTime.now().format(DATE_TIME_FORMATTER),
                 uris, true);
-        if (response == null || !response.getStatusCode().is2xxSuccessful()) {
-            throw new ValidException("Произошла ошибка при получении просмотров");
-        }
 
-        log.info("Response body: {}", response.getBody());
-        List<Map<String, Integer>> stats = (ArrayList<Map<String, Integer>>) response.getBody();
+        log.info("Response body: {}", response);
 
-        if (stats.size() != 0) {
-            return Long.valueOf(stats.get(0).get("hits"));
+        if (response.size() != 0) {
+            return response.get(0).getHits();
         }
         return 0L;
     }

@@ -1,9 +1,8 @@
 package ru.practicum.mainservice.service.compilations;
 
-import org.springframework.http.ResponseEntity;
-import ru.practicum.mainservice.dto.compilationDto.CompilationDto;
-import ru.practicum.mainservice.dto.compilationDto.NewCompilationDto;
-import ru.practicum.mainservice.dto.compilationDto.UpdateCompilationRequest;
+import ru.practicum.mainservice.dto.compilation.CompilationDto;
+import ru.practicum.mainservice.dto.compilation.NewCompilationDto;
+import ru.practicum.mainservice.dto.compilation.UpdateCompilationRequest;
 import ru.practicum.mainservice.model.Compilation;
 
 import java.util.List;
@@ -13,7 +12,7 @@ public interface CompilationService {
 
     CompilationDto updateCompilationByIdAdm(Long compId, UpdateCompilationRequest updateCompilationRequest);
 
-    ResponseEntity<String> deleteCompilationByIdAdm(Long compId);
+    void deleteCompilationByIdAdm(Long compId);
 
     List<CompilationDto> getCompilationsPub(Boolean pinned, int from, int size);
 

@@ -12,7 +12,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ru.practicum.dto.HitDto;
-import ru.practicum.dto.ViewStat;
+import ru.practicum.dto.ViewStatDto;
 import ru.practicum.server.service.StatsService;
 
 import java.time.LocalDateTime;
@@ -71,9 +71,9 @@ class StatsControllerTest {
         List<String> uris = List.of("TestUri1", "TestUri2");
         Boolean unique = false;
 
-        List<ViewStat> viewStatsList = List.of(
-                new ViewStat("TestApp1", "TestUri1", 10L),
-                new ViewStat("TestApp2", "TestUri2", 8L)
+        List<ViewStatDto> viewStatsList = List.of(
+                new ViewStatDto("TestApp1", "TestUri1", 10L),
+                new ViewStatDto("TestApp2", "TestUri2", 8L)
         );
 
         when(statsService.getStatistic(

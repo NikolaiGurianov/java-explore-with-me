@@ -1,7 +1,7 @@
 package ru.practicum.mainservice.service.events.admin;
 
-import ru.practicum.mainservice.dto.eventDto.EventFullDto;
-import ru.practicum.mainservice.dto.eventDto.UpdateEventAdminRequest;
+import ru.practicum.mainservice.dto.event.EventFullDto;
+import ru.practicum.mainservice.dto.event.UpdateEventAdminRequest;
 import ru.practicum.mainservice.model.Event;
 import ru.practicum.mainservice.statuses.State;
 

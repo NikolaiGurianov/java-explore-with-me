@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.mainservice.dto.eventDto.EventFullDto;
+import ru.practicum.mainservice.dto.event.EventFullDto;
 import ru.practicum.mainservice.statuses.SortEvent;
 import ru.practicum.mainservice.service.events.pub.PublicEventService;
 
@@ -29,7 +29,7 @@ public class PublicEventsController {
                                         @RequestParam(required = false) Boolean paid,
                                         @RequestParam(required = false, defaultValue = "#{T(java.time.LocalDateTime).now()}")
                                         @DateTimeFormat(pattern = DATE_TIME_FORMAT) LocalDateTime rangeStart,
-                                        @RequestParam(required = false, defaultValue = "#{T(java.time.LocalDateTime).now().plusYears(50)}")
+                                        @RequestParam(required = false, defaultValue = "#{T(java.time.LocalDateTime).now().plusMonths(1)}")
                                         @DateTimeFormat(pattern = DATE_TIME_FORMAT) LocalDateTime rangeEnd,
                                         @RequestParam(required = false) Boolean onlyAvailable,
                                         @RequestParam(required = false) SortEvent sort,

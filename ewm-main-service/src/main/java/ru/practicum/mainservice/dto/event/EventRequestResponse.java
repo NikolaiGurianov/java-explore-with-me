@@ -1,9 +1,9 @@
-package ru.practicum.mainservice.dto.eventDto;
+package ru.practicum.mainservice.dto.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.practicum.mainservice.dto.requestDto.ParticipationRequestDto;
+import ru.practicum.mainservice.dto.request.ParticipationRequestDto;
 
 import java.util.List;
 

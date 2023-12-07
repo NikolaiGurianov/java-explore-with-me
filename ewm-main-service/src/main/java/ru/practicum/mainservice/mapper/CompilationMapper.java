@@ -1,17 +1,15 @@
 package ru.practicum.mainservice.mapper;
 
-import lombok.Data;
-import org.springframework.stereotype.Component;
-import ru.practicum.mainservice.dto.compilationDto.CompilationDto;
-import ru.practicum.mainservice.dto.compilationDto.NewCompilationDto;
+import lombok.experimental.UtilityClass;
+import ru.practicum.mainservice.dto.compilation.CompilationDto;
+import ru.practicum.mainservice.dto.compilation.NewCompilationDto;
 import ru.practicum.mainservice.model.Compilation;
 import ru.practicum.mainservice.model.Event;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Data
-@Component
+@UtilityClass
 public class CompilationMapper {
 
     public static Compilation toCompilation(NewCompilationDto newCompilationDto, List<Event> events) {

@@ -5,12 +5,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import ru.practicum.mainservice.dto.compilationDto.CompilationDto;
-import ru.practicum.mainservice.dto.compilationDto.NewCompilationDto;
-import ru.practicum.mainservice.dto.compilationDto.UpdateCompilationRequest;
+import ru.practicum.mainservice.dto.compilation.CompilationDto;
+import ru.practicum.mainservice.dto.compilation.NewCompilationDto;
+import ru.practicum.mainservice.dto.compilation.UpdateCompilationRequest;
 import ru.practicum.mainservice.exception.NotFoundException;
 import ru.practicum.mainservice.mapper.CompilationMapper;
 import ru.practicum.mainservice.model.Compilation;
@@ -68,10 +66,9 @@ public class CompilationServiceImpl implements CompilationService {
     }
 
     @Override
-    public ResponseEntity<String> deleteCompilationByIdAdm(Long compId) {
+    public void deleteCompilationByIdAdm(Long compId) {
         log.info("Public: Запрос на удаление подборки событий ID= {}", compId);
         compilationsRepository.deleteById(compId);
-        return new ResponseEntity<>("Подборка событий удалена", HttpStatus.NO_CONTENT);
     }
 
     @Override

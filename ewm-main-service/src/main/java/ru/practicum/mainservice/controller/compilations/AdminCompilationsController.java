@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.mainservice.dto.compilationDto.CompilationDto;
-import ru.practicum.mainservice.dto.compilationDto.NewCompilationDto;
-import ru.practicum.mainservice.dto.compilationDto.UpdateCompilationRequest;
+import ru.practicum.mainservice.dto.compilation.CompilationDto;
+import ru.practicum.mainservice.dto.compilation.NewCompilationDto;
+import ru.practicum.mainservice.dto.compilation.UpdateCompilationRequest;
 import ru.practicum.mainservice.service.compilations.CompilationService;
 
 import javax.validation.Valid;
@@ -29,7 +29,8 @@ public class AdminCompilationsController {
     }
 
     @DeleteMapping("/{compilationId}")
-    public ResponseEntity<String> deleteCompilationById(@PathVariable Long compilationId) {
-        return compilationService.deleteCompilationByIdAdm(compilationId);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteCompilationById(@PathVariable Long compilationId) {
+        compilationService.deleteCompilationByIdAdm(compilationId);
     }
 }

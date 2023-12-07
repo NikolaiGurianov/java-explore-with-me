@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.dto.HitDto;
-import ru.practicum.dto.ViewStat;
+import ru.practicum.dto.ViewStatDto;
 import ru.practicum.server.service.StatsService;
 
 import java.time.LocalDateTime;
@@ -31,10 +31,10 @@ public class StatsController {
     }
 
     @GetMapping("/stats")
-    public List<ViewStat> getStatistics(@RequestParam @DateTimeFormat(pattern = DATE_TIME_FORMAT) LocalDateTime start,
-                                        @RequestParam @DateTimeFormat(pattern = DATE_TIME_FORMAT) LocalDateTime end,
-                                        @RequestParam(required = false) List<String> uris,
-                                        @RequestParam(defaultValue = "false") Boolean unique) {
+    public List<ViewStatDto> getStatistics(@RequestParam @DateTimeFormat(pattern = DATE_TIME_FORMAT) LocalDateTime start,
+                                           @RequestParam @DateTimeFormat(pattern = DATE_TIME_FORMAT) LocalDateTime end,
+                                           @RequestParam(required = false) List<String> uris,
+                                           @RequestParam(defaultValue = "false") Boolean unique) {
         log.info("Processing request to get statistics.");
         return statsService.getStatistic(start, end, uris, unique);
     }

@@ -1,10 +1,9 @@
 package ru.practicum.mainservice.mapper;
 
-import lombok.Data;
-import org.springframework.stereotype.Component;
-import ru.practicum.mainservice.dto.eventDto.EventFullDto;
-import ru.practicum.mainservice.dto.eventDto.EventShortDto;
-import ru.practicum.mainservice.dto.eventDto.NewEventDto;
+import lombok.experimental.UtilityClass;
+import ru.practicum.mainservice.dto.event.EventFullDto;
+import ru.practicum.mainservice.dto.event.EventShortDto;
+import ru.practicum.mainservice.dto.event.NewEventDto;
 import ru.practicum.mainservice.model.Category;
 import ru.practicum.mainservice.model.Event;
 import ru.practicum.mainservice.model.Location;
@@ -13,8 +12,7 @@ import ru.practicum.mainservice.statuses.State;
 
 import java.time.LocalDateTime;
 
-@Data
-@Component
+@UtilityClass
 public class EventMapper {
 
     public static Event toEvent(NewEventDto newEventDto, Category category, Location location, User initiator) {

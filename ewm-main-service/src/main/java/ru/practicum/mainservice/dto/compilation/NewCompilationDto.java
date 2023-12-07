@@ -1,4 +1,4 @@
-package ru.practicum.mainservice.dto.compilationDto;
+package ru.practicum.mainservice.dto.compilation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

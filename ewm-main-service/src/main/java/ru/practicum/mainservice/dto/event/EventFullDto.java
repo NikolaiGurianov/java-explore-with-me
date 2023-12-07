@@ -1,4 +1,4 @@
-package ru.practicum.mainservice.dto.eventDto;
+package ru.practicum.mainservice.dto.event;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,8 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.mainservice.dto.LocationDto;
-import ru.practicum.mainservice.dto.categoryDto.CategoryDto;
-import ru.practicum.mainservice.dto.userDto.UserShortDto;
+import ru.practicum.mainservice.dto.category.CategoryDto;
+import ru.practicum.mainservice.dto.user.UserShortDto;
 import ru.practicum.mainservice.statuses.State;
 
 import javax.validation.constraints.NotNull;

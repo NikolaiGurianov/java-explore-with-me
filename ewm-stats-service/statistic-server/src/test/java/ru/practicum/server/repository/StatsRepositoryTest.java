@@ -3,7 +3,7 @@ package ru.practicum.server.repository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import ru.practicum.dto.ViewStat;
+import ru.practicum.dto.ViewStatDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,7 +22,7 @@ class StatsRepositoryTest {
         LocalDateTime endDateTime = LocalDateTime.now();
         List<String> uris = List.of("uri1", "uri2");
 
-        List<ViewStat> result = statsRepository.getViewStatsWithUniqueIp(startDateTime, endDateTime, uris);
+        List<ViewStatDto> result = statsRepository.getViewStatsWithUniqueIp(startDateTime, endDateTime, uris);
 
         assertNotNull(result);
     }
@@ -33,7 +33,7 @@ class StatsRepositoryTest {
         LocalDateTime endDateTime = LocalDateTime.now();
         List<String> uris = List.of("uri1", "uri2");
 
-        List<ViewStat> result = statsRepository.getViewStatsWithAllIp(startDateTime, endDateTime, uris);
+        List<ViewStatDto> result = statsRepository.getViewStatsWithAllIp(startDateTime, endDateTime, uris);
 
         assertNotNull(result);
     }
@@ -43,7 +43,7 @@ class StatsRepositoryTest {
         LocalDateTime start = LocalDateTime.now().minusDays(7);
         LocalDateTime end = LocalDateTime.now();
 
-        List<ViewStat> result = statsRepository.getViewStatisticsWithUniqueIpAllUris(start, end);
+        List<ViewStatDto> result = statsRepository.getViewStatisticsWithUniqueIpAllUris(start, end);
 
         assertNotNull(result);
     }
@@ -53,7 +53,7 @@ class StatsRepositoryTest {
         LocalDateTime start = LocalDateTime.now().minusDays(7);
         LocalDateTime end = LocalDateTime.now();
 
-        List<ViewStat> result = statsRepository.getViewStatisticsWithAllIpAllUris(start, end);
+        List<ViewStatDto> result = statsRepository.getViewStatisticsWithAllIpAllUris(start, end);
 
         assertNotNull(result);
     }

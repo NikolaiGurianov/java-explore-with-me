@@ -3,7 +3,7 @@ package ru.practicum.mainservice.controller.categories;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.mainservice.dto.categoryDto.CategoryDto;
+import ru.practicum.mainservice.dto.category.CategoryDto;
 import ru.practicum.mainservice.service.categories.CategoriesService;
 
 import javax.validation.constraints.Positive;

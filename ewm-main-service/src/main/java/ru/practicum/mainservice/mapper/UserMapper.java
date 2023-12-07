@@ -1,14 +1,12 @@
 package ru.practicum.mainservice.mapper;
 
-import lombok.Data;
-import org.springframework.stereotype.Component;
-import ru.practicum.mainservice.dto.userDto.NewUserDto;
-import ru.practicum.mainservice.dto.userDto.UserDto;
-import ru.practicum.mainservice.dto.userDto.UserShortDto;
+import lombok.experimental.UtilityClass;
+import ru.practicum.mainservice.dto.user.NewUserDto;
+import ru.practicum.mainservice.dto.user.UserDto;
+import ru.practicum.mainservice.dto.user.UserShortDto;
 import ru.practicum.mainservice.model.User;
 
-@Data
-@Component
+@UtilityClass
 public class UserMapper {
     public static NewUserDto toDto(User user) {
         NewUserDto userDto = new NewUserDto();

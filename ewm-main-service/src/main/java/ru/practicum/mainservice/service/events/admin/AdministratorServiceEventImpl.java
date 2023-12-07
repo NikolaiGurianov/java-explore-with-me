@@ -6,8 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.practicum.client.StatsClient;
-import ru.practicum.mainservice.dto.eventDto.EventFullDto;
-import ru.practicum.mainservice.dto.eventDto.UpdateEventAdminRequest;
+import ru.practicum.mainservice.dto.event.EventFullDto;
+import ru.practicum.mainservice.dto.event.UpdateEventAdminRequest;
 import ru.practicum.mainservice.exception.ConflictException;
 import ru.practicum.mainservice.exception.ValidException;
 import ru.practicum.mainservice.mapper.EventMapper;
@@ -99,10 +99,8 @@ public class AdministratorServiceEventImpl implements AdministratorEventService 
         if (action != null) {
             if (action.equals(UpdateEventAdminRequest.StateAction.PUBLISH_EVENT)) {
                 result = PUBLISHED;
-            } else if (action.equals(UpdateEventAdminRequest.StateAction.REJECT_EVENT)) {
-                if (event.getState().equals(PUBLISHED)) {
-                    throw new ConflictException("Невозможно отменить опубликованное событие!");
-                }
+            } else if (action.equals(UpdateEventAdminRequest.StateAction.REJECT_EVENT) && event.getState().equals(PUBLISHED)) {
+                throw new ConflictException("Невозможно отменить опубликованное событие!");
             }
         }
         return result;

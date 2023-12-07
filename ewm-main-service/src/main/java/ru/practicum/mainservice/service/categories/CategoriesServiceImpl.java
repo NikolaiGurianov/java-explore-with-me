@@ -6,8 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import ru.practicum.mainservice.dto.categoryDto.CategoryDto;
-import ru.practicum.mainservice.dto.categoryDto.NewCategoryDto;
+import ru.practicum.mainservice.dto.category.CategoryDto;
+import ru.practicum.mainservice.dto.category.NewCategoryDto;
 import ru.practicum.mainservice.exception.ConflictException;
 import ru.practicum.mainservice.mapper.CategoryMapper;
 import ru.practicum.mainservice.model.Category;
@@ -79,7 +79,7 @@ public class CategoriesServiceImpl implements CategoriesService {
     @Override
     public void deleteCategoryAdm(Long catId) {
         log.info("Admin: Получен запрос на удаление категории c ID= {}", catId);
-        Category category = getEntity(catId);
+        getEntity(catId);
         if (!eventsRepository.findAllByCategoryId(catId).isEmpty()) {
             throw new ConflictException("Категория с ID= {} используется и не может быть удалена", catId);
         }

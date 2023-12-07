@@ -1,6 +1,6 @@
 package ru.practicum.mainservice.service.events.pub;
 
-import ru.practicum.mainservice.dto.eventDto.EventFullDto;
+import ru.practicum.mainservice.dto.event.EventFullDto;
 import ru.practicum.mainservice.statuses.SortEvent;
 
 import javax.servlet.http.HttpServletRequest;

@@ -4,10 +4,10 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.practicum.dto.HitDto;
+import ru.practicum.dto.ViewStatDto;
 import ru.practicum.server.exception.ValidException;
 import ru.practicum.server.mapper.HitMapper;
 import ru.practicum.server.model.EndpointHit;
-import ru.practicum.server.model.ViewStat;
 import ru.practicum.server.repository.StatsRepository;
 
 import java.time.LocalDateTime;
@@ -27,7 +27,7 @@ public class StatsServiceImpl implements StatsService {
     }
 
     @Override
-    public List<ViewStat> getStatistic(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
+    public List<ViewStatDto> getStatistic(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
         if (start.isAfter(end)) {
             log.error("Invalid time range. 'start' should be before 'end'.");
             throw new ValidException("Invalid time range. 'start' should be before 'end'.");

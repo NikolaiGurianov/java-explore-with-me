@@ -13,10 +13,10 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import ru.practicum.dto.HitDto;
+import ru.practicum.dto.ViewStatDto;
 import ru.practicum.server.exception.ValidException;
 import ru.practicum.server.mapper.HitMapper;
 import ru.practicum.server.model.EndpointHit;
-import ru.practicum.server.model.ViewStat;
 import ru.practicum.server.repository.StatsRepository;
 
 import java.time.LocalDateTime;
@@ -69,9 +69,9 @@ class StatsServiceImplTest {
         List<String> uris = List.of("uri1", "uri2");
 
         when(statsRepository.getViewStatsWithUniqueIp(start, end, uris))
-                .thenReturn(List.of(new ViewStat()));
+                .thenReturn(List.of(new ViewStatDto()));
 
-        List<ViewStat> result = statsService.getStatistic(start, end, uris, true);
+        List<ViewStatDto> result = statsService.getStatistic(start, end, uris, true);
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
@@ -86,9 +86,9 @@ class StatsServiceImplTest {
         List<String> uris = List.of("uri1", "uri2");
 
         when(statsRepository.getViewStatsWithAllIp(start, end, uris))
-                .thenReturn(List.of(new ViewStat()));
+                .thenReturn(List.of(new ViewStatDto()));
 
-        List<ViewStat> result = statsService.getStatistic(start, end, uris, false);
+        List<ViewStatDto> result = statsService.getStatistic(start, end, uris, false);
 
         assertNotNull(result);
         assertFalse(result.isEmpty());

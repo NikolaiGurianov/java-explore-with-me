@@ -1,5 +1,7 @@
 package ru.practicum.client;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,14 +11,14 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.dto.HitDto;
+import ru.practicum.dto.ViewStatDto;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 
 @Slf4j
 @Service
 public class StatsClient extends BaseClient {
-
     @Autowired
     public StatsClient(@Value("${stats.client.url}") String serverUrl, RestTemplateBuilder builder) {
         super(
@@ -27,19 +29,23 @@ public class StatsClient extends BaseClient {
         );
     }
 
-    public ResponseEntity<Object> getStatistics(String start, String end, List<String> uriList, boolean unique) {
+    public List<ViewStatDto> getStatistics(String start, String end, String[] uris, boolean unique) {
         Map<String, Object> parameters = Map.of(
                 "start", start,
                 "end", end,
-                "uriList", uriList,
+                "uris", uris,
                 "unique", unique
         );
+
         log.info("Request to receive statistics on visits from {} to {}", start, end);
-        return get("?start={start}&end={end}&uriList={uriList}&unique={unique}", parameters);
+
+        ResponseEntity<Object> objectResponseEntity = get("/stats?start={start}&end={end}&uris={uris}&unique={unique}", parameters);
+        return new ObjectMapper().convertValue(objectResponseEntity.getBody(), new TypeReference<List<ViewStatDto>>() {
+        });
     }
 
-    public ResponseEntity<Object> postHit(HitDto hitDto) {
+    public void postHit(HitDto hitDto) {
         log.info("Request to save endpoint");
-        return post("/hit", hitDto);
+        post("/hit", hitDto);
     }
 }

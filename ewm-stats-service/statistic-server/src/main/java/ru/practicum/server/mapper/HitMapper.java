@@ -6,7 +6,7 @@ import ru.practicum.server.model.EndpointHit;
 
 import java.time.LocalDateTime;
 
-import static ru.practicum.server.constant.Constants.DATE_TIME_FORMATTER;
+import static ru.practicum.util.Constants.DATE_TIME_FORMATTER;
 
 @Component
 public class HitMapper {
@@ -26,7 +26,6 @@ public class HitMapper {
         dto.setUri(hit.getUri());
         dto.setIp(hit.getIp());
         dto.setTimestamp(hit.getTimestamp().toString());
-
         return dto;
     }
 }

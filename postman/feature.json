@@ -458,7 +458,7 @@
                   "        const submittedUser = await api.addUser(rnd.getUser());        ",
                   "        const requestToParticipate = await api.publishParticipationRequest(event.id, submittedUser.id);   ",
                   "        await api.acceptParticipationRequest(event.id, user.id, requestToParticipate.id);",
-                  "        comment = rnd.getComment().repeat(10); ",
+                  "        comment = String(rnd.getComment().repeat(10)); ",
                   "        pm.collectionVariables.set(\"uid\", submittedUser.id);",
                   "",
                   "    } catch(err) {",
@@ -998,14 +998,6 @@
     {
       "name": "Admin tests",
       "item": [
-        {
-          "name": "получение пустого списка комментариев",
-          "request": {
-            "method": "GET",
-            "header": []
-          },
-          "response": []
-        },
         {
           "name": "публикация комментария",
           "event": [
